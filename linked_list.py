@@ -38,6 +38,8 @@ class LinkedList:
             node = self.head
         if node is None:
             return 0
+        if node.next is None:
+            return node.data
         return node.data + self.recursive_sum(node.next)
         
     def recursive_reverse(self):
@@ -50,17 +52,16 @@ class LinkedList:
         self.head = _reverse(self.head, None)
 
        
-    def recursive_search(self, target, node=None):
-        if node is None:
-            node = self.head
-   
-        if node is None:
-            return False
+  
+    def recursive_search(self, target):
+        def _search(node):
+            if node is None:
+                return False
+            if node.data == target:
+                return True
+            return _search(node.next)
+        return _search(self.head)
 
-        if node.data == target:
-            return True
-
-        return self.recursive_search(target, node.next)
 
     def display(self):
         current = self.head
